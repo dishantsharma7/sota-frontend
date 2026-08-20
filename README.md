@@ -24,6 +24,11 @@ git clone https://github.com/<you>/sota-engine && cd sota-engine
 # Entry mode B — existing project: injects only, zero files touched
 cd ~/projects/my-existing-site && /path/to/sota-engine/src/init.sh .
 
+# Upgrade an already-initialized project to the engine's current version
+# (re-syncs skills + workflow seeds, surgically replaces the router block,
+# validates with a build, and bumps the .sota marker)
+/path/to/sota-engine/src/init.sh --update ~/projects/my-existing-site
+
 # Then open the target folder in Antigravity (or your agent IDE) and say:
 #   new site: <what you want>. run the workflow.
 ```
@@ -106,9 +111,12 @@ sota-engine/
 
 - **M1 — injector** ✅ both entry modes, idempotent, state-safe, offline-capable,
   dials-persistence enforced by the router
-- **M2 — publish** in progress: this README, skill pinning, `init --update` (re-inject
-  skills + re-append router when engine version is newer), GitHub template release
-- **M3 — CLI (future):** `npx sota-engine init` wrapping the same logic
+- **M2 — publish** ✅ README, LICENSE, pinned skills manifest, `init --update`
+  (in-place version upgrade: skills + workflow sync, surgical router replace,
+  build-validated, marker re-bumped), template smoke test passed. The GitHub
+  template is live (currently private) — flip visibility to public when ready
+- **M3 — CLI (future):** `npx sota-engine init` wrapping the same logic; stale-project
+  drift reporting via the marker version
 
 ---
 
