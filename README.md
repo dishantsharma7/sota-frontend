@@ -67,9 +67,16 @@ when resolving conflicts or changing engine behavior.
 - `workflow/current.yaml` — **your knobs**, generated per project: `variance`,
   `motion_intensity`, `density` (1–10), `radius`, one `accent`. DIRECTION reads and
   overwrites it; you can override dials conversationally in chat.
-- `workflow/prompts/` — six style seeds (brutalist, editorial-kinetic-type,
-  premium-dark-tech, glassmorphism-lux, neo-brutalism, bento-minimal-saas) to start
-  from a known taste instead of a blank page.
+- `workflow/prompts/` — thirty style seeds (the full designprompts.dev catalog,
+  remapped to the contract where needed) to start from a known taste instead of a
+  blank page: academia-archive, art-deco-luxury, bauhaus-geometric,
+  bento-minimal-saas, bold-typography-poster, botanical-nature, brutalist-portfolio,
+  claymorphism-soft, cyberpunk-neon, editorial-kinetic-type, enterprise-b2b,
+  flat-design-solid, glassmorphism-lux, industrial-tech, material-design-official,
+  maximalism-loud, minimal-dark-consumer, monochrome-editorial, neo-brutalism-playful,
+  neumorphism-constrained, newsprint-editorial, organic-flow, playful-geometric,
+  premium-dark-tech, professional-consulting, retro-nostalgia, sketch-handmade,
+  swiss-minimalist, vaporwave-remapped, web3-dark.
 
 ### The skills (15, pinned)
 
@@ -115,6 +122,9 @@ sota-engine/
   (in-place version upgrade: skills + workflow sync, surgical router replace,
   build-validated, marker re-bumped), template smoke test passed. The GitHub
   template is live (currently private) — flip visibility to public when ready
+- **M2.1 — seed library v30** ✅ expanded `workflow/prompts/` from 6 to 30 seeds
+  (full designprompts.dev catalog, contract-remapped: ban-compliant palettes,
+  motion ceilings, honest labels for Material/Neumorphism/Vaporwave/etc.)
 - **M3 — CLI (future):** `npx sota-engine init` wrapping the same logic; stale-project
   drift reporting via the marker version
 
