@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "engine_version": "1.1.0",
+  "generated": "2026-08-20",
+  "policy": "no unpinned dependencies; upgrades bump ref + sha256 together via explicit PR",
+  "skills": [
+    {
+      "name": "animate",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/animate",
+      "sha256": "a7f244dc230402c900a2c1358d5aae3e200365058712f07250cae092fe1920d1"
+    },
+    {
+      "name": "animation-vocabulary",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/animation-vocabulary",
+      "sha256": "db7b231ac78d45670e278459e21c81421e2e87f0783e10f783ac883ca03d3df7"
+    },
+    {
+      "name": "apple-design",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/apple-design",
+      "sha256": "1b16ba167b73e1c095f1ec201d3f98a22e7b969620e02c99362eb6192264d1a2"
+    },
+    {
+      "name": "brandkit",
+      "source": "github.com/leonxlnx/taste-skill",
+      "ref": "dfb6f9f",
+      "path": "engine/skills/brandkit",
+      "sha256": "ee81fa71c9f39d0641eae1904578fb8552bb6c1e8e34439b950b8a9a3c3593b6"
+    },
+    {
+      "name": "brutalist-skill",
+      "source": "github.com/leonxlnx/taste-skill",
+      "ref": "dfb6f9f",
+      "path": "engine/skills/brutalist-skill",
+      "sha256": "b08a19f3cc86c98e29606ca9993660202b614553e13abdcc1485611d55e3d130"
+    },
+    {
+      "name": "find-animation-opportunities",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/find-animation-opportunities",
+      "sha256": "a967d0eba54edf6cc8df21b4b387d5b15c86ad63e0a3ef1704c2ea58b90b3b88"
+    },
+    {
+      "name": "impeccable",
+      "source": "github.com/pbakaus/impeccable",
+      "ref": "f88b283",
+      "path": "engine/skills/impeccable",
+      "sha256": "56c629ab9604b4788f5d79f103babd634285fc6b323efe1592b199fbb47a3538"
+    },
+    {
+      "name": "improve-animations",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/improve-animations",
+      "sha256": "f758806e6b727d2089efd3f26d2135e5d2d342e96ad353e9caace8d6f674cb00"
+    },
+    {
+      "name": "minimalist-skill",
+      "source": "github.com/leonxlnx/taste-skill",
+      "ref": "dfb6f9f",
+      "path": "engine/skills/minimalist-skill",
+      "sha256": "7bf50240828f49caf56796784af1b53fc81baee7a1ff2478b2a39fcfebb50767"
+    },
+    {
+      "name": "pick-ui-library",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/pick-ui-library",
+      "sha256": "5e607af681f4a36b36ffb9cdd7b17d97872f3aad15117f74da79b957bb3c05c6"
+    },
+    {
+      "name": "prototype",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/prototype",
+      "sha256": "dd7d17191b9f014fe4ced213a3fd31a4c6dc47334da1b0da143c4ddbca7594f7"
+    },
+    {
+      "name": "redesign-skill",
+      "source": "github.com/leonxlnx/taste-skill",
+      "ref": "dfb6f9f",
+      "path": "engine/skills/redesign-skill",
+      "sha256": "805fe924d26cd282574089a2a5e05d0599ebfb336305a383472a861130465454"
+    },
+    {
+      "name": "review-animations",
+      "source": "github.com/emilkowalski/skills",
+      "ref": "e879241",
+      "path": "engine/skills/review-animations",
+      "sha256": "86c35da7fdc4d83ef3eb391c7aa606e708c9efcb57715b4d0b78ee8743cb33cb"
+    },
+    {
+      "name": "soft-skill",
+      "source": "github.com/leonxlnx/taste-skill",
+      "ref": "dfb6f9f",
+      "path": "engine/skills/soft-skill",
+      "sha256": "da78bf56edf5fd914e64897f6cf61d3c381bdb8289d68f48d016cdf05aa49472"
+    },
+    {
+      "name": "taste-skill",
+      "source": "github.com/leonxlnx/taste-skill",
+      "ref": "dfb6f9f",
+      "path": "engine/skills/taste-skill",
+      "sha256": "4a37a1668f2a03f0e52ff15e2f0473cbe58a820802cb8834097edf8a4ca3f384"
+    }
+  ]
+}
