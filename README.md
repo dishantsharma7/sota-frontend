@@ -122,5 +122,5 @@ sota-engine/
 
 ## License
 
-> TODO: choose a license before public release (MIT / Apache-2.0 recommended for
-> templates; the vendored skills keep their upstream licenses).
+MIT — see [LICENSE](LICENSE). The vendored skills keep their upstream licenses
+(impeccable: Apache 2.0; taste-skill family and emil motion set: MIT).
