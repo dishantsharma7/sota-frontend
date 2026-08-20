@@ -2,17 +2,107 @@
 set -e
 
 # init.sh - SOTA Engine injector
-# Usage: ./src/init.sh [target-dir]
+# Usage:
+#   ./src/init.sh [target-dir]            initialize (empty scaffold or existing inject)
+#   ./src/init.sh --update [target-dir]   in-place engine upgrade (skills + router + workflow)
 
-TARGET_DIR="${1:-.}"
+UPDATE=0
+TARGET_DIR="."
+for arg in "$@"; do
+  case "$arg" in
+    --update) UPDATE=1 ;;
+    *) TARGET_DIR="$arg" ;;
+  esac
+done
+
 ENGINE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-echo "Initializing SOTA engine in $TARGET_DIR..."
-
-# 1. Resolve target dir
+# Resolve target dir
 mkdir -p "$TARGET_DIR"
 cd "$TARGET_DIR"
 TARGET_DIR_ABS="$(pwd)"
+
+# Numeric semver compare: returns 0 if $1 > $2, 1 otherwise
+version_gt() {
+  local a=(${1//./ }) b=(${2//./ })
+  for i in 0 1 2; do
+    local av="${a[$i]:-0}" bv="${b[$i]:-0}"
+    if [ "$av" -gt "$bv" ]; then return 0; fi
+    if [ "$av" -lt "$bv" ]; then return 1; fi
+  done
+  return 1
+}
+
+# --- --update path: in-place engine upgrade ---
+if [ "$UPDATE" = "1" ]; then
+  if [ ! -d ".sota" ]; then
+    echo "Error: not an SOTA-managed project (no .sota marker). Run ./src/init.sh <dir> first."
+    exit 1
+  fi
+  MARKER_VERSION="$(sed -n 's/^Engine Version: //p' .sota/info)"
+  ENTRY_MODE="$(sed -n 's/^Entry Mode: //p' .sota/info)"
+  ENGINE_VERSION="$(cat "$ENGINE_ROOT/engine/VERSION")"
+
+  echo "Checking SOTA engine version in $TARGET_DIR_ABS ..."
+  if [ -z "$MARKER_VERSION" ] || [ -z "$ENTRY_MODE" ]; then
+    echo "Error: .sota/info is malformed (missing version or entry mode). Re-init instead."
+    exit 1
+  fi
+  if [ "$MARKER_VERSION" = "$ENGINE_VERSION" ]; then
+    echo "up to date (engine $ENGINE_VERSION) — nothing to do"
+    exit 0
+  fi
+  if version_gt "$MARKER_VERSION" "$ENGINE_VERSION"; then
+    echo "warning: project ($MARKER_VERSION) is newer than engine ($ENGINE_VERSION) — skipping"
+    exit 0
+  fi
+
+  echo "Updating $TARGET_DIR_ABS: $MARKER_VERSION → $ENGINE_VERSION"
+
+  # 1. skills — engine-reserved, overwrite-to-repair
+  echo "Syncing skills..."
+  mkdir -p .agents/skills
+  if [ -d "$ENGINE_ROOT/engine/skills" ] && [ "$(ls -A "$ENGINE_ROOT/engine/skills")" ]; then
+    cp -r "$ENGINE_ROOT/engine/skills/"* .agents/skills/
+  fi
+
+  # 2. workflow template + seeds + scripts (current.yaml untouched)
+  echo "Syncing workflow..."
+  mkdir -p workflow
+  if [ -d "$ENGINE_ROOT/engine/workflow" ] && [ "$(ls -A "$ENGINE_ROOT/engine/workflow")" ]; then
+    cp -r "$ENGINE_ROOT/engine/workflow/"* workflow/
+  fi
+
+  # 3. router — surgical replace of the BEGIN/END block; fresh append if absent
+  echo "Replacing router block in AGENTS.md..."
+  if grep -q "sota-workflow" AGENTS.md; then
+    awk '
+      /BEGIN:sota-workflow/ { inblock=1; next }
+      /END:sota-workflow/   { inblock=0; next }
+      !inblock              { print }
+    ' AGENTS.md > AGENTS.md.tmp
+    cat "$ENGINE_ROOT/engine/AGENTS-router.md" >> AGENTS.md.tmp
+    mv AGENTS.md.tmp AGENTS.md
+  else
+    cat "$ENGINE_ROOT/engine/AGENTS-router.md" >> AGENTS.md
+  fi
+
+  # 4. validate — build must pass before the marker is bumped
+  if [ -f "package.json" ]; then
+    echo "Running npm run build to validate..."
+    npm run build
+  fi
+
+  # 5. re-mark, preserving entry mode
+  echo "Engine Version: $ENGINE_VERSION" > .sota/info
+  date > .sota/init_date
+  echo "Entry Mode: $ENTRY_MODE" >> .sota/info
+  echo "✅ updated to engine $ENGINE_VERSION"
+  exit 0
+fi
+
+# --- normal init path ---
+echo "Initializing SOTA engine in $TARGET_DIR..."
 
 # 3. Re-run safe
 if [ -d ".sota" ]; then
